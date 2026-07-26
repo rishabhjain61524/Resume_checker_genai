@@ -1,0 +1,177 @@
+.app-navbar {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0.75rem 1.5rem;
+}
+
+.navbar-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.brand-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+
+    .brand-accent {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.brand-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.8rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #34d399;
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: #10b981;
+        box-shadow: 0 0 8px #10b981;
+        animation: pulseDot 2s infinite;
+    }
+}
+
+.user-profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2rem;
+
+    .user-avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+        color: #ffffff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-name {
+        font-size: 0.825rem;
+        font-weight: 600;
+        color: #e2e8f0;
+    }
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 0.5rem;
+    color: #fca5a5;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ffffff;
+    }
+}
+
+.auth-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .nav-login-link {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 600;
+
+        &:hover {
+            color: #ffffff;
+        }
+    }
+
+    .nav-register-btn {
+        text-decoration: none;
+        padding: 0.5rem 1.1rem;
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        color: #ffffff;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        transition: transform 0.15s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+        }
+    }
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+}

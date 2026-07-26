@@ -1,0 +1,316 @@
+// ── Loading Screen SCSS ──────────────────────────────────────────────────
+$bg-page:        #080b11;
+$bg-card:        rgba(15, 23, 42, 0.85);
+$bg-panel:       rgba(15, 23, 42, 0.6);
+$border-color:   rgba(255, 255, 255, 0.08);
+$text-primary:   #f8fafc;
+$text-muted:     #64748b;
+$accent:         #6366f1;
+$accent-violet:  #a855f7;
+$accent-cyan:    #06b6d4;
+$accent-green:   #10b981;
+$font-heading:   'Outfit', -apple-system, sans-serif;
+$font-body:      'Plus Jakarta Sans', -apple-system, sans-serif;
+
+.ai-loading-container {
+    width: 100%;
+    min-height: 100vh;
+    background: $bg-page;
+    background-image:
+        radial-gradient(ellipse 70% 50% at 50% 20%, rgba(99, 102, 241, 0.18), transparent),
+        radial-gradient(ellipse 50% 40% at 80% 70%, rgba(168, 85, 247, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(6, 182, 212, 0.08), transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    font-family: $font-body;
+    color: $text-primary;
+}
+
+.ai-loading-card {
+    width: 100%;
+    max-width: 580px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.15);
+    animation: cardFadeIn 0.6s ease-out;
+}
+
+// ── AI Orb Animation ────────────────────────────────────────────────────────
+.ai-orb-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.ai-orb-ring {
+    position: absolute;
+    border-radius: 50%;
+
+    &.ring-1 {
+        width: 100px;
+        height: 100px;
+        border: 2px dashed rgba($accent, 0.6);
+        animation: spinCW 12s linear infinite;
+    }
+
+    &.ring-2 {
+        width: 80px;
+        height: 80px;
+        border: 2px solid transparent;
+        border-top-color: $accent-violet;
+        border-bottom-color: $accent-cyan;
+        animation: spinCCW 6s linear infinite;
+    }
+
+    &.ring-3 {
+        width: 60px;
+        height: 60px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        animation: pulseRing 2.5s ease-in-out infinite alternate;
+    }
+}
+
+.ai-orb-core {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $accent 0%, $accent-violet 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba($accent, 0.7), 0 0 60px rgba($accent-violet, 0.3);
+    color: #ffffff;
+    animation: corePulse 2s ease-in-out infinite;
+    font-family: $font-heading;
+
+    .ai-sparkle-icon {
+        width: 22px;
+        height: 22px;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+    }
+}
+
+// ── Header Text ──────────────────────────────────────────────────────────────
+.ai-loading-title {
+    font-family: $font-heading;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 0.4rem;
+    background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #e879f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.01em;
+}
+
+.ai-loading-subtitle {
+    font-size: 0.875rem;
+    color: $text-muted;
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 440px;
+    line-height: 1.6;
+}
+
+// ── Progress Bar ─────────────────────────────────────────────────────────────
+.ai-progress-section {
+    width: 100%;
+    margin-bottom: 1.75rem;
+}
+
+.ai-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $text-muted;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ai-progress-percent {
+    background: linear-gradient(135deg, $accent, $accent-violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.ai-progress-track {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ai-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, $accent 0%, $accent-violet 50%, $accent-cyan 100%);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-progress-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    animation: shimmer 1.8s infinite;
+}
+
+// ── Step List ────────────────────────────────────────────────────────────────
+.ai-steps-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 1.75rem;
+}
+
+.ai-step-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 0.6rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+
+    .step-icon-box {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.05);
+        color: $text-muted;
+        font-size: 0.75rem;
+        font-weight: 600;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    .step-text {
+        font-size: 0.85rem;
+        color: $text-muted;
+        transition: color 0.3s ease;
+    }
+
+    &.step--done {
+        background-color: rgba(16, 185, 129, 0.05);
+        border-color: rgba(16, 185, 129, 0.15);
+
+        .step-icon-box {
+            background-color: $accent-green;
+            color: #ffffff;
+        }
+
+        .step-text {
+            color: #a7f3d0;
+        }
+    }
+
+    &.step--active {
+        background: rgba($accent, 0.1);
+        border-color: rgba($accent, 0.3);
+        box-shadow: 0 0 15px rgba($accent, 0.1);
+
+        .step-icon-box {
+            background: rgba($accent, 0.2);
+            border: 1px solid $accent;
+        }
+
+        .step-text {
+            color: $text-primary;
+            font-weight: 600;
+        }
+    }
+}
+
+.active-spinner {
+    width: 10px;
+    height: 10px;
+    border: 2px solid $accent-violet;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spinCW 0.8s linear infinite;
+}
+
+// ── Tip Box ──────────────────────────────────────────────────────────────────
+.ai-tip-box {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    background: rgba(6, 182, 212, 0.07);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 0.75rem;
+    font-size: 0.8rem;
+    color: #7dd3fc;
+    line-height: 1.55;
+    text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .tip-content {
+        animation: fadeIn 0.5s ease-out;
+    }
+}
+
+// ── Animations ───────────────────────────────────────────────────────────────
+@keyframes spinCW {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spinCCW {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.95); opacity: 0.4; }
+    100% { transform: scale(1.05); opacity: 0.9; }
+}
+
+@keyframes corePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba($accent, 0.5); }
+    50% { transform: scale(1.08); box-shadow: 0 0 35px rgba($accent, 0.8); }
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}

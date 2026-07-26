@@ -1,0 +1,662 @@
+// ── Design Tokens ─────────────────────────────────────────────────────────────
+$bg-main:        #080b11;
+$bg-card:        rgba(15, 23, 42, 0.85);
+$bg-panel:       rgba(15, 23, 42, 0.6);
+$bg-input:       rgba(8, 11, 22, 0.8);
+$border-subtle:  rgba(255, 255, 255, 0.08);
+$border-light:   rgba(255, 255, 255, 0.14);
+$text-primary:   #f8fafc;
+$text-secondary: #cbd5e1;
+$text-muted:     #64748b;
+$accent:         #6366f1;
+$accent-purple:  #a855f7;
+$accent-pink:    #ec4899;
+$accent-cyan:    #06b6d4;
+$accent-emerald: #10b981;
+$font-heading:   'Outfit', -apple-system, sans-serif;
+$font-body:      'Plus Jakarta Sans', -apple-system, sans-serif;
+$severity-high:  #f87171;
+$severity-mid:   #fbbf24;
+$severity-low:   #34d399;
+
+*::-webkit-scrollbar { width: 5px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+// ── Page Shell ────────────────────────────────────────────────────────────────
+.interview-page {
+    width: 100%;
+    min-height: 100vh;
+    background: $bg-main;
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 90%, rgba(168, 85, 247, 0.08), transparent);
+    color: $text-primary;
+    font-family: $font-body;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+// ── Outer Wrapper ─────────────────────────────────────────────────────────────
+.interview-outer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem;
+    gap: 1.25rem;
+    box-sizing: border-box;
+}
+
+// ── Page Header Bar ────────────────────────────────────────────────────────────
+.interview-page-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: $bg-card;
+    backdrop-filter: blur(16px);
+    border: 1px solid $border-subtle;
+    border-radius: 0.875rem;
+
+    .page-header-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+
+        h1 {
+            font-family: $font-heading;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: $text-primary;
+            margin: 0;
+        }
+
+        .page-header-date {
+            font-size: 0.75rem;
+            color: $text-muted;
+        }
+    }
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    background: transparent;
+    border: 1px solid $border-light;
+    border-radius: 0.5rem;
+    color: $text-secondary;
+    font-family: $font-body;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+        background: $bg-panel;
+        color: $text-primary;
+        border-color: rgba($accent, 0.3);
+    }
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: #fff;
+    font-family: $font-heading;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.6);
+    }
+}
+
+// ── 3-Column Layout ───────────────────────────────────────────────────────────
+.interview-layout {
+    display: flex;
+    flex: 1;
+    background: $bg-card;
+    backdrop-filter: blur(20px);
+    border: 1px solid $border-subtle;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    min-height: 0;
+}
+
+.interview-divider {
+    width: 1px;
+    background: $border-subtle;
+    flex-shrink: 0;
+}
+
+// ── Left Nav ─────────────────────────────────────────────────────────────────
+.interview-nav {
+    width: 210px;
+    flex-shrink: 0;
+    padding: 1.5rem 0.875rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.25rem;
+
+    .nav-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    &__label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: $text-muted;
+        padding: 0 0.65rem;
+        margin-bottom: 0.5rem;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        width: 100%;
+        padding: 0.6rem 0.65rem;
+        background: none;
+        border: none;
+        border-radius: 0.5rem;
+        color: $text-muted;
+        font-family: $font-body;
+        font-size: 0.845rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.15s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: $text-primary;
+        }
+
+        &--active {
+            background: rgba($accent, 0.12);
+            color: #a5b4fc;
+            font-weight: 600;
+
+            .interview-nav__icon svg {
+                stroke: #a5b4fc;
+            }
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+}
+
+// Score mini ring in nav
+.nav-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid $border-subtle;
+
+    &__value {
+        font-family: $font-heading;
+        font-size: 1.8rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    &__label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: $text-muted;
+        margin-top: 0.1rem;
+    }
+
+    &.score--high {
+        background: rgba($severity-low, 0.08);
+        border-color: rgba($severity-low, 0.25);
+        .nav-score__value { color: $severity-low; }
+    }
+    &.score--mid {
+        background: rgba($severity-mid, 0.08);
+        border-color: rgba($severity-mid, 0.25);
+        .nav-score__value { color: $severity-mid; }
+    }
+    &.score--low {
+        background: rgba($severity-high, 0.08);
+        border-color: rgba($severity-high, 0.25);
+        .nav-score__value { color: $severity-high; }
+    }
+}
+
+// ── Center Content ────────────────────────────────────────────────────────────
+.interview-content {
+    flex: 1;
+    padding: 1.75rem 2rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 220px);
+    padding-bottom: 3rem;
+    min-height: 0;
+
+    section { min-height: 100%; }
+}
+
+.content-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.875rem;
+    border-bottom: 1px solid $border-subtle;
+
+    h2 {
+        font-family: $font-heading;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $text-primary;
+        margin: 0;
+    }
+
+    &__count {
+        font-size: 0.75rem;
+        color: #a5b4fc;
+        background: rgba($accent, 0.1);
+        border: 1px solid rgba($accent, 0.2);
+        padding: 0.15rem 0.6rem;
+        border-radius: 2rem;
+        font-weight: 600;
+    }
+}
+
+// ── Question Cards ────────────────────────────────────────────────────────────
+.q-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.q-card {
+    background: $bg-panel;
+    border: 1px solid $border-subtle;
+    border-radius: 0.65rem;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        border-color: rgba($accent, 0.2);
+    }
+
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.9rem 1rem;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &__index {
+        flex-shrink: 0;
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: $accent;
+        background: rgba($accent, 0.12);
+        border: 1px solid rgba($accent, 0.25);
+        border-radius: 0.3rem;
+        padding: 0.15rem 0.45rem;
+        margin-top: 2px;
+        font-family: $font-heading;
+    }
+
+    &__question {
+        flex: 1;
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: $text-primary;
+        line-height: 1.55;
+    }
+
+    &__chevron {
+        flex-shrink: 0;
+        color: $text-muted;
+        transition: transform 0.2s ease;
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+
+        &--open {
+            transform: rotate(180deg);
+            color: $accent;
+        }
+    }
+
+    &__body {
+        padding: 0 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        border-top: 1px solid $border-subtle;
+        padding-top: 0.8rem;
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+
+        p {
+            margin: 0;
+            font-size: 0.845rem;
+            color: $text-secondary;
+            line-height: 1.65;
+        }
+    }
+
+    &__tag {
+        font-size: 0.66rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.25rem;
+        width: fit-content;
+
+        &--intention {
+            color: #c4b5fd;
+            background: rgba(#c4b5fd, 0.1);
+            border: 1px solid rgba(#c4b5fd, 0.2);
+        }
+
+        &--answer {
+            color: $severity-low;
+            background: rgba($severity-low, 0.1);
+            border: 1px solid rgba($severity-low, 0.2);
+        }
+    }
+}
+
+// ── Road Map ──────────────────────────────────────────────────────────────────
+.roadmap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 28px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, $accent, rgba($accent, 0.05));
+        border-radius: 1px;
+    }
+}
+
+.roadmap-day {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem 0 0.85rem 3.5rem;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 21px;
+        top: 1.05rem;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: $bg-card;
+        border: 2px solid $accent;
+        box-shadow: 0 0 8px rgba($accent, 0.4);
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    &__badge {
+        font-family: $font-heading;
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: #a5b4fc;
+        background: rgba($accent, 0.12);
+        border: 1px solid rgba($accent, 0.25);
+        padding: 0.1rem 0.55rem;
+        border-radius: 2rem;
+    }
+
+    &__focus {
+        margin: 0;
+        font-family: $font-heading;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: $text-primary;
+    }
+
+    &__tasks {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.84rem;
+            color: $text-secondary;
+            line-height: 1.55;
+        }
+    }
+
+    &__bullet {
+        flex-shrink: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba($accent, 0.6);
+        margin-top: 8px;
+    }
+}
+
+// ── Right Sidebar ─────────────────────────────────────────────────────────────
+.interview-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: $border-subtle;
+}
+
+// Match Score
+.match-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: $text-muted;
+        margin: 0;
+        align-self: flex-start;
+    }
+
+    &__ring {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid;
+        position: relative;
+
+        &.score--high {
+            border-color: $severity-low;
+            box-shadow: 0 0 20px rgba($severity-low, 0.25);
+        }
+        &.score--mid {
+            border-color: $severity-mid;
+            box-shadow: 0 0 20px rgba($severity-mid, 0.25);
+        }
+        &.score--low {
+            border-color: $severity-high;
+            box-shadow: 0 0 20px rgba($severity-high, 0.25);
+        }
+    }
+
+    &__value {
+        font-family: $font-heading;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: $text-primary;
+        line-height: 1;
+    }
+
+    &__pct {
+        font-size: 0.75rem;
+        color: $text-muted;
+        margin-top: -2px;
+    }
+
+    &__sub {
+        margin: 0;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: $text-secondary;
+        text-align: center;
+    }
+}
+
+// Skill Gaps
+.skill-gaps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    &__label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: $text-muted;
+        margin: 0;
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+}
+
+.skill-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.4rem;
+    border: 1px solid;
+
+    &--high {
+        color: $severity-high;
+        background: rgba($severity-high, 0.1);
+        border-color: rgba($severity-high, 0.25);
+    }
+    &--medium {
+        color: $severity-mid;
+        background: rgba($severity-mid, 0.1);
+        border-color: rgba($severity-mid, 0.25);
+    }
+    &--low {
+        color: $severity-low;
+        background: rgba($severity-low, 0.1);
+        border-color: rgba($severity-low, 0.25);
+    }
+}
+
+// Sidebar Stats
+.sidebar-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: $text-secondary;
+
+    svg { color: #a5b4fc; flex-shrink: 0; }
+}
+
+// ── Primary button ────────────────────────────────────────────────────────────
+.button.primary-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    background: linear-gradient(135deg, $accent, $accent-purple);
+    color: #fff;
+    font-family: $font-heading;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba($accent, 0.4);
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba($accent, 0.6);
+    }
+}
