@@ -95,22 +95,41 @@ Job Description: ${jobDescription}
 }
 
 async function generatePdfFromHtml(htmlContent) {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.setContent(htmlContent, { waitUntil: "networkidle0" })
+    const launchOptions = {
+        args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--single-process"
+        ]
+    }
 
-    const pdfBuffer = await page.pdf({
-        format: "A4",
-        margin: {
-            top: "20mm",
-            bottom: "20mm",
-            left: "15mm",
-            right: "15mm"
+    if (process.env.PUPPETEER_EXECUTABLE_PATH || process.platform === "linux" || process.env.NODE_ENV === "production") {
+        launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium"
+    }
+
+    let browser
+    try {
+        browser = await puppeteer.launch(launchOptions)
+        const page = await browser.newPage()
+        await page.setContent(htmlContent, { waitUntil: "networkidle0" })
+
+        const pdfBuffer = await page.pdf({
+            format: "A4",
+            margin: {
+                top: "20mm",
+                bottom: "20mm",
+                left: "15mm",
+                right: "15mm"
+            }
+        })
+
+        return pdfBuffer
+    } finally {
+        if (browser) {
+            await browser.close()
         }
-    })
-
-    await browser.close()
-    return pdfBuffer
+    }
 }
 
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
