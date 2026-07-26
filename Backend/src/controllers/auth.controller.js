@@ -3,9 +3,17 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const tokenBlacklistModel = require("../models/blacklist.model")
 
+// Cookie options required for cross-domain requests (Vercel <-> Render)
+const cookieOptions = {
+    httpOnly: true,
+    secure: true,      // Must be true for HTTPS (Render & Vercel)
+    sameSite: "none",  // Must be "none" to allow cross-origin cookie sending
+    maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
+}
+
 /**
  * @name registerUserController
- * @description register a new user, expects username, email and pas sword in the request body
+ * @description register a new user, expects username, email and password in the request body
  * @access Public
  */
 async function registerUserController(req, res) {
@@ -42,8 +50,8 @@ async function registerUserController(req, res) {
         { expiresIn: "1d" }
     )
 
-    res.cookie("token", token)
-
+    // Updated with cross-domain cookie options
+    res.cookie("token", token, cookieOptions)
 
     res.status(201).json({
         message: "User registered successfully",
@@ -88,7 +96,9 @@ async function loginUserController(req, res) {
         { expiresIn: "1d" }
     )
 
-    res.cookie("token", token)
+    // Updated with cross-domain cookie options
+    res.cookie("token", token, cookieOptions)
+
     res.status(200).json({
         message: "User loggedIn successfully.",
         user: {
@@ -112,7 +122,12 @@ async function logoutUserController(req, res) {
         await tokenBlacklistModel.create({ token })
     }
 
-    res.clearCookie("token")
+    // Pass the same options when clearing cookies so the browser knows which cookie to drop
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    })
 
     res.status(200).json({
         message: "User logged out successfully"
@@ -128,8 +143,6 @@ async function getMeController(req, res) {
 
     const user = await userModel.findById(req.user.id)
 
-
-
     res.status(200).json({
         message: "User details fetched successfully",
         user: {
@@ -140,8 +153,6 @@ async function getMeController(req, res) {
     })
 
 }
-
-
 
 module.exports = {
     registerUserController,
