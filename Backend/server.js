@@ -4,7 +4,7 @@ const connectToDB = require("./src/config/database")
 
 // Health check route (must be before DB connection so Render can probe it even during startup)
 app.get("/health", (req, res) => {
-    res.status(200).json({ status: "OK" })
+    res.status(200).json({ status: 'OK' })
 })
 
 const PORT = process.env.PORT || 3000

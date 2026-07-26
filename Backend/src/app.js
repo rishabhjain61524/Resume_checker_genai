@@ -16,7 +16,7 @@ const allowedOrigins = [
 app.use(cors({
     origin: (origin, callback) => {
         // Allow requests with no origin (e.g. mobile apps, curl, Render health checks)
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
             callback(null, true)
         } else {
             callback(new Error(`CORS policy: origin ${origin} not allowed`))
@@ -24,6 +24,11 @@ app.use(cors({
     },
     credentials: true
 }))
+
+// Health check route for Render
+app.get("/health", (req, res) => {
+    res.status(200).json({ status: 'OK' })
+})
 
 /* require all the routes here */
 
