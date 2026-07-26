@@ -8,10 +8,11 @@ app.use(express.json())
 app.use(cookieParser())
 
 const allowedOrigins = [
+    "https://resume-checker-genai.vercel.app",
     process.env.CLIENT_URL,
     "http://localhost:5173",
     "http://localhost:3000"
-].filter(Boolean)
+].map(url => url && url.replace(/\/$/, "")).filter(Boolean);
 
 app.use(cors({
     origin: (origin, callback) => {
